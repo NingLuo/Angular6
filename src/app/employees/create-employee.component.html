@@ -22,13 +22,13 @@
             <label for="email" class="control-label">Email</label>
             <input id="email" name="email" type="text" class="form-control"
                    [(ngModel)]="employee.email" #email = "ngModel"
-                   required email>
+                   required pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(gmail)\.com$">
             <span class="help-block" 
                   *ngIf="email.errors?.required && email.touched">
                 Email is required
             </span>
             <span class="help-block" 
-                  *ngIf="email.errors?.email && email.touched">
+                  *ngIf="email.errors?.pattern && email.touched">
                 Email is invalid
             </span>
         </div>
