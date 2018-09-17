@@ -140,8 +140,9 @@
           <img [src]="employee.photoPath" height="200" width="200" *ngIf="previewPhoto">
         </div>
 
-        <div ngModelGroup="passwordGroup" 
-            [class.has-error]="confirmPassword.touched && confirmPassword.invalid && !confirmPassword.errors?.required">
+        <div ngModelGroup="passwordGroup" #passwordGroup="ngModelGroup"
+            [class.has-error]="confirmPassword.touched && passwordGroup.errors?.notEqual && !confirmPassword.errors?.required"
+            appConfirmEqualValidator>
           <!-- Password -->
           <div class="form-group" [class.has-error]="password.touched && password.invalid">
             <label for="password" class="control-label">Password</label>
@@ -158,18 +159,17 @@
             <label for="confirmPassword" class="control-label">Confirm Password</label>
             <input name="confirmPassword" id="confirmPassword" type="text" class="form-control" 
                   [(ngModel)]="employee.confirmPassword" #confirmPassword="ngModel" 
-                  required appConfirmEqualValidator="password">
+                  required >
             <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
               Confirm Password is required
             </span>
-            <span class="help-block" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual &&
+            <span class="help-block" *ngIf="confirmPassword.touched && passwordGroup.errors?.notEqual &&
                     !confirmPassword.errors?.required">
               Password and Confirm Password does not match
             </span>
           </div>
         </div>
         
-
       </div>
  
       <div class="panel-footer">
