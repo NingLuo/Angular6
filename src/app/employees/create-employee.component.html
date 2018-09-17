@@ -98,13 +98,19 @@
         </div>
 
         <!-- Department -->
-        <div class="form-group">           
-            <label for="department">Department</label>
-            <select id="department" name="department" [(ngModel)]="employee.department" class="form-control">
+        <div class="form-group" [class.has-error]="department.invalid && department.touched">           
+            <label for="department" class="control-label">Department</label>
+            <select id="department" name="department" class="form-control"
+                  [(ngModel)]="employee.department" #department="ngModel"
+                  required>
+              <option disabled [ngValue]="null">Select Department</option>
               <option *ngFor="let dept of departments" [value]="dept.id">
                 {{dept.name}}
               </option>
-            </select>                      
+            </select>
+            <span class="help-block" *ngIf="department.touched && department.errors?.required">
+                Department is required
+            </span>                      
         </div>
 
         <!-- Date of Birth -->
@@ -117,6 +123,7 @@
             </div>
         </div>       
 
+        <!-- Photo Path -->
         <div class="form-group">
             <label for="photoPath">Photo Path</label>
             <input id="photoPath" name="photoPath" [(ngModel)]="employee.photoPath" 
